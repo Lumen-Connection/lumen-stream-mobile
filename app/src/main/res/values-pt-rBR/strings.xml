@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_home">Início</string>
+    <string name="nav_library">Biblioteca</string>
+    <string name="nav_settings">Configurações</string>
+
+    <string name="home_paste_hint">Cole um link…</string>
+    <string name="home_download">Baixar</string>
+    <string name="home_queue">Fila</string>
+    <string name="queue_empty">Nenhum download ainda</string>
+    <string name="clipboard_detected">Link detectado na área de transferência</string>
+    <string name="action_use">Usar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_retry">Tentar de novo</string>
+    <string name="action_delete">Excluir</string>
+
+    <string name="format_dialog_title">Escolha o formato</string>
+    <string name="format_video">Vídeo (melhor qualidade)</string>
+    <string name="format_video_720">Vídeo (até 720p)</string>
+    <string name="format_audio_best">Áudio (original)</string>
+
+    <string name="status_queued">Na fila</string>
+    <string name="status_running">Baixando…</string>
+    <string name="status_processing">Processando…</string>
+    <string name="status_done">Concluído</string>
+    <string name="status_failed">Falhou</string>
+    <string name="status_cancelled">Cancelado</string>
+
+    <string name="library_search">Buscar na biblioteca…</string>
+    <string name="library_empty">Sua biblioteca está vazia. Baixe algo!</string>
+    <string name="favorites">Favoritos</string>
+    <string name="all_media">Tudo</string>
+
+    <string name="settings_storage">Armazenamento</string>
+    <string name="settings_storage_default">Padrão (Movies/Música via MediaStore)</string>
+    <string name="settings_storage_custom">Pasta personalizada</string>
+    <string name="settings_choose_folder">Escolher pasta</string>
+    <string name="settings_rate_limit">Limite de velocidade (KB/s, 0 = ilimitado)</string>
+    <string name="settings_engine">Motor de extração</string>
+    <string name="settings_subtitles">Baixar legendas quando disponíveis</string>
+    <string name="settings_playlist">Baixar playlists inteiras</string>
+    <string name="settings_update_ytdlp">Atualizar yt-dlp</string>
+    <string name="ytdlp_updated">yt-dlp atualizado</string>
+    <string name="ytdlp_update_failed">Falha ao atualizar o yt-dlp</string>
+    <string name="settings_about">Sobre</string>
+    <string name="settings_about_body">Livre, aberto e sem rastreamento. Parte do ecossistema Lumen Connection.</string>
+
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="download_notification_title">Baixando</string>
+    <string name="share_added">Adicionado à fila de downloads</string>
+    <string name="error_invalid_url">Link inválido</string>
+</resources>
