@@ -208,14 +208,21 @@ class DownloadService : Service() {
 
         val destDir = File(cacheDir, "ytdlp/${task.id}")
         try {
-            val files = YtDlpEngine.download(
-                url = task.url,
-                destDir = destDir,
-                options = YtDlpEngine.Options(format, rateLimit, subtitles, playlist),
-                processId = task.id.toString(),
-            ) { progress ->
+            val onProgress: (Float) -> Unit = { progress ->
                 runBlocking { dao.setProgress(task.id, progress, DownloadStatus.RUNNING, "yt-dlp", task.title) }
                 notifyProgress(task.title ?: task.url, progress)
+            }
+            val options = YtDlpEngine.Options(format, rateLimit, subtitles, playlist)
+            val files = try {
+                YtDlpEngine.download(task.url, destDir, options, task.id.toString(), onProgress)
+            } catch (e: Exception) {
+                // 403 do YouTube costuma ser yt-dlp desatualizado: atualiza e
+                // tenta uma vez de novo, como o desktop faz.
+                val msg = e.message.orEmpty()
+                val updatable = msg.contains("403") || msg.contains("Forbidden", ignoreCase = true)
+                if (task.id in cancelledIds || !updatable || !YtDlpEngine.update(applicationContext)) throw e
+                destDir.deleteRecursively()
+                YtDlpEngine.download(task.url, destDir, options, task.id.toString(), onProgress)
             }
             if (task.id in cancelledIds) throw HttpDownloader.CancelledException()
             if (files.isEmpty()) throw IllegalStateException("yt-dlp produced no files")

@@ -11,6 +11,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,6 +35,17 @@ fun AppNav(sharedUrl: String?, onSharedUrlConsumed: () -> Unit) {
     val navController = rememberNavController()
     val backStack by navController.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
+
+    // Link compartilhado precisa da Home em composição para abrir o diálogo,
+    // mesmo se o app estiver em outra tela (player, biblioteca...).
+    LaunchedEffect(sharedUrl) {
+        if (!sharedUrl.isNullOrBlank() && currentRoute != Routes.HOME) {
+            navController.navigate(Routes.HOME) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
+        }
+    }
 
     val tabs = listOf(
         Triple(Routes.HOME, Icons.Filled.Download, R.string.nav_home),
