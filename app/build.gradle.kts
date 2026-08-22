@@ -95,6 +95,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.video)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.junit)
 
     // Extração: NewPipe primeiro, yt-dlp (Python embutido) como fallback
     implementation(libs.newpipe.extractor)

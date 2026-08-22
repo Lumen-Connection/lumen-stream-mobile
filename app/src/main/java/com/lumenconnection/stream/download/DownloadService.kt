@@ -21,6 +21,7 @@ import com.lumenconnection.stream.extractor.ExtractionUnsupportedException
 import com.lumenconnection.stream.extractor.NewPipeEngine
 import com.lumenconnection.stream.extractor.YtDlpEngine
 import com.lumenconnection.stream.media.MediaSaver
+import com.lumenconnection.stream.metadata.SpotifyMetadata
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -88,13 +89,30 @@ class DownloadService : Service() {
         notifyProgress(task.title ?: task.url, 0f)
 
         try {
+            var effectiveTask = task
+
+            // Spotify é DRM: resolve metadados (oEmbed/embed público) e converte
+            // cada faixa em `ytsearch1:Artista - Faixa` buscado no YouTube.
+            if (SpotifyMetadata.isSpotifyUrl(task.url)) {
+                val tracks = SpotifyMetadata.resolve(task.url)
+                tracks.drop(1).forEach { t ->
+                    dao.insert(DownloadTask(url = t.searchTarget, title = t.label, format = task.format))
+                }
+                effectiveTask = task.copy(
+                    url = tracks.first().searchTarget,
+                    title = tracks.first().label,
+                )
+                dao.setProgress(task.id, 0f, DownloadStatus.RUNNING, "yt-dlp", effectiveTask.title)
+            }
+
             val newPipeAllowed = engine != Engine.YTDLP &&
-                !format.needsYtDlp && !subtitles && !playlist
+                !format.needsYtDlp && !subtitles && !playlist &&
+                !effectiveTask.url.startsWith("ytsearch")
 
             var done = false
             if (newPipeAllowed) {
                 try {
-                    runNewPipe(task, format, rateLimit, customTree)
+                    runNewPipe(effectiveTask, format, rateLimit, customTree)
                     done = true
                 } catch (e: HttpDownloader.CancelledException) {
                     throw e
@@ -109,7 +127,7 @@ class DownloadService : Service() {
                         "Format/options require yt-dlp but engine is NewPipe-only"
                     )
                 }
-                runYtDlp(task, format, rateLimit, subtitles, playlist, customTree)
+                runYtDlp(effectiveTask, format, rateLimit, subtitles, playlist, customTree)
             }
             dao.setProgress(task.id, 1f, DownloadStatus.DONE, null, null)
         } catch (e: HttpDownloader.CancelledException) {

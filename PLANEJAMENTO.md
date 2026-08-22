@@ -139,5 +139,7 @@ Passos após extrair:
 - ✅ Repo criado e push feito: https://github.com/Lumen-Connection/lumen-stream-mobile (branch main)
 - ✅ **CI verde** no GitHub Actions (job build; job release só roda em tag `v*`)
 - ⚠️ Commits **sem** trailer de co-autoria do Claude (preferência do usuário; histórico foi reescrito para remover)
-- ⏭️ **Próximos passos**: (1) testar em dispositivo/emulador real (fluxo E2E da seção 7); (2) pendências do MVP: metadata Spotify real (1.10 — portar do desktop); (3) configurar secrets de assinatura (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) para release; (4) tag v0.1.0 quando testado
+- ✅ **Metadata Spotify portada do desktop** (item 1.10): Spotify é DRM — faixa via oEmbed público, playlist/álbum via parse do embed `__NEXT_DATA__`; cada faixa vira `ytsearch1:Artista - Faixa` baixado pelo yt-dlp no YouTube. Playlists expandem em múltiplas tasks na fila. Testes unitários com as mesmas fixtures do desktop em `app/src/test/` (passando)
+- ✅ **Assinatura configurada**: keystore em `d:\HubLumen\.secrets\lumen-stream-mobile.keystore` (senha em `lumen-stream-mobile-signing.txt` na mesma pasta — FAZER BACKUP); secrets KEYSTORE_BASE64/KEYSTORE_PASSWORD/KEY_ALIAS/KEY_PASSWORD setados no repo via `gh secret set`
+- ⏭️ **Próximos passos**: (1) testar E2E em dispositivo/emulador (seção 7) — máquina não tinha device conectado; instalação do emulador em andamento (depende de aceleração WHPX disponível); (2) tag v0.1.0 quando testado
 - Pendências conhecidas de design: player background/MediaSession (fase 1.x); legendas/playlists só via caminho yt-dlp (NewPipe cai automaticamente para yt-dlp nesses casos)
