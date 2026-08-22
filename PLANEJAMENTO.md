@@ -137,5 +137,7 @@ Passos após extrair:
 - ✅ CI escrito (`.github/workflows/android.yml`), README PT/EN, LICENSE GPL-3.0
 - ✅ **BUILD VERDE**: `gradlew assembleDebug` compila (APKs: arm64 74,6 MB; universal 213 MB — tamanho vem do Python/ffmpeg embutidos, como previsto). Atenção: youtubedl-android agora publica no **Maven Central** como `io.github.junkfood02.youtubedl-android:library/ffmpeg:0.18.1` (JitPack do yausername quebrou nas versões novas); os pacotes Kotlin continuam `com.yausername.*`
 - ✅ Repo criado e push feito: https://github.com/Lumen-Connection/lumen-stream-mobile (branch main)
-- ⏭️ **Próximos passos**: (1) conferir CI verde no GitHub Actions; (2) testar em dispositivo/emulador real (fluxo E2E da seção 7); (3) pendências do MVP: metadata Spotify real (1.10 — portar do desktop); (4) configurar secrets de assinatura (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) para release; (5) tag v0.1.0 quando testado
+- ✅ **CI verde** no GitHub Actions (job build; job release só roda em tag `v*`)
+- ⚠️ Commits **sem** trailer de co-autoria do Claude (preferência do usuário; histórico foi reescrito para remover)
+- ⏭️ **Próximos passos**: (1) testar em dispositivo/emulador real (fluxo E2E da seção 7); (2) pendências do MVP: metadata Spotify real (1.10 — portar do desktop); (3) configurar secrets de assinatura (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) para release; (4) tag v0.1.0 quando testado
 - Pendências conhecidas de design: player background/MediaSession (fase 1.x); legendas/playlists só via caminho yt-dlp (NewPipe cai automaticamente para yt-dlp nesses casos)
