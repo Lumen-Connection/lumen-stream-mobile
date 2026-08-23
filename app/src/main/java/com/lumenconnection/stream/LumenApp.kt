@@ -35,8 +35,10 @@ class LumenApp : Application(), ImageLoaderFactory {
                 YoutubeDL.getInstance().init(this@LumenApp)
                 FFmpeg.getInstance().init(this@LumenApp)
                 ytDlpReady = true
-            } catch (e: Exception) {
-                Log.e("LumenApp", "yt-dlp init failed", e)
+            } catch (t: Throwable) {
+                // Throwable, não Exception: falhas de <clinit> chegam como Error
+                // e derrubariam o app inteiro. Sem yt-dlp o NewPipe ainda atende.
+                Log.e("LumenApp", "yt-dlp init failed", t)
             }
         }
     }
