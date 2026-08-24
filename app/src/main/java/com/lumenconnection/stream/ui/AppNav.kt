@@ -19,6 +19,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
+import androidx.compose.material.icons.automirrored.outlined.PlaylistPlay
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Movie
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.VideoLibrary
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -76,16 +86,16 @@ object Routes {
  * exclusivas de desktop (Converter, Folders, Games, Cloud, Achievements) ficam
  * de fora; o resto mantém ícone, ordem e rótulo.
  */
-private data class NavEntry(val icon: String, val labelRes: Int, val route: String)
+private data class NavEntry(val icon: ImageVector, val labelRes: Int, val route: String)
 
 private val NAV_ENTRIES = listOf(
-    NavEntry("🏠", R.string.nav_home, Routes.HOME),
-    NavEntry("🎵", R.string.nav_music, Routes.MUSIC),
-    NavEntry("🎬", R.string.nav_video, Routes.VIDEO),
-    NavEntry("📋", R.string.nav_queue, Routes.QUEUE),
-    NavEntry("📁", R.string.nav_library, Routes.LIBRARY),
-    NavEntry("⚙", R.string.nav_settings, Routes.SETTINGS),
-    NavEntry("❓", R.string.nav_help, Routes.HELP),
+    NavEntry(Icons.Outlined.Home, R.string.nav_home, Routes.HOME),
+    NavEntry(Icons.Outlined.MusicNote, R.string.nav_music, Routes.MUSIC),
+    NavEntry(Icons.Outlined.Movie, R.string.nav_video, Routes.VIDEO),
+    NavEntry(Icons.AutoMirrored.Outlined.PlaylistPlay, R.string.nav_queue, Routes.QUEUE),
+    NavEntry(Icons.Outlined.VideoLibrary, R.string.nav_library, Routes.LIBRARY),
+    NavEntry(Icons.Outlined.Settings, R.string.nav_settings, Routes.SETTINGS),
+    NavEntry(Icons.AutoMirrored.Outlined.HelpOutline, R.string.nav_help, Routes.HELP),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -164,7 +174,11 @@ fun AppNav(sharedUrl: String?, onSharedUrlConsumed: () -> Unit) {
                         },
                         navigationIcon = {
                             IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                                Text("☰", fontSize = 20.sp, color = c.text)
+                                Icon(
+                                    Icons.Outlined.Menu,
+                                    contentDescription = null,
+                                    tint = c.text,
+                                )
                             }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(

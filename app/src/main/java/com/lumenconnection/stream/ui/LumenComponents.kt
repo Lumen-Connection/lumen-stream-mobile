@@ -22,6 +22,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.draw.rotate
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -67,8 +71,13 @@ fun PageHeader(title: String, subtitle: String = "", diamond: Boolean = true) {
     val c = Lumen.colors
     Row(verticalAlignment = Alignment.CenterVertically) {
         if (diamond) {
-            Text("◆", color = c.accent, fontSize = 26.sp)
-            Spacer(Modifier.width(10.dp))
+            Box(
+                Modifier
+                    .size(15.dp)
+                    .rotate(45f)
+                    .background(c.accent, RoundedCornerShape(2.dp)),
+            )
+            Spacer(Modifier.width(12.dp))
         }
         Text(title, color = c.text, fontSize = 26.sp, fontWeight = FontWeight.Bold)
     }
@@ -96,6 +105,7 @@ fun AccentButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    icon: ImageVector? = null,
 ) {
     Button(
         onClick = onClick,
@@ -109,6 +119,10 @@ fun AccentButton(
             disabledContentColor = Lumen.colors.textFaint,
         ),
     ) {
+        if (icon != null) {
+            Icon(icon, contentDescription = null, modifier = Modifier.size(19.dp))
+            Spacer(Modifier.width(8.dp))
+        }
         Text(text, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
     }
 }
@@ -146,7 +160,7 @@ fun GhostButton(
  */
 @Composable
 fun NavItem(
-    icon: String,
+    icon: ImageVector,
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
@@ -180,7 +194,12 @@ fun NavItem(
                 .padding(start = 14.dp, end = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(icon, fontSize = 20.sp, color = c.text)
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = c.text,
+                modifier = Modifier.size(21.dp),
+            )
             Spacer(Modifier.width(14.dp))
             Text(label, fontSize = 16.sp, color = c.text)
         }

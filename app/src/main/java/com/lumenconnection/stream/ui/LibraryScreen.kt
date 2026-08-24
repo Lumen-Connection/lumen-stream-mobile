@@ -24,6 +24,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.Sell
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -192,10 +201,13 @@ private fun MediaCard(
                 .background(c.bgInput),
         ) {
             if (item.kind == "audio" && item.thumbnailUrl == null) {
-                Text(
-                    "🎵",
-                    fontSize = 30.sp,
-                    modifier = Modifier.align(Alignment.Center),
+                Icon(
+                    Icons.Outlined.MusicNote,
+                    contentDescription = null,
+                    tint = c.textFaint,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(34.dp),
                 )
             } else {
                 AsyncImage(
@@ -206,13 +218,14 @@ private fun MediaCard(
                 )
             }
             if (item.favorite) {
-                Text(
-                    "★",
-                    color = c.accent,
-                    fontSize = 16.sp,
+                Icon(
+                    Icons.Filled.Star,
+                    contentDescription = null,
+                    tint = c.accent,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(6.dp),
+                        .padding(6.dp)
+                        .size(17.dp),
                 )
             }
         }
@@ -244,26 +257,33 @@ private fun MediaCard(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconAction(if (item.favorite) "★" else "☆", if (item.favorite) c.accent else c.textMuted) {
+                IconAction(
+                    if (item.favorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                    if (item.favorite) c.accent else c.textMuted,
+                ) {
                     scope.launch { Graph.db.mediaDao().update(item.copy(favorite = !item.favorite)) }
                 }
-                IconAction("🏷", c.textMuted, onClick = onEditTags)
+                IconAction(Icons.Outlined.Sell, c.textMuted, onClick = onEditTags)
                 Spacer(Modifier.width(1.dp))
-                IconAction("🗑", c.textMuted, onClick = onDelete)
+                IconAction(Icons.Outlined.Delete, c.textMuted, onClick = onDelete)
             }
         }
     }
 }
 
 @Composable
-private fun IconAction(glyph: String, tint: androidx.compose.ui.graphics.Color, onClick: () -> Unit) {
+private fun IconAction(
+    icon: ImageVector,
+    tint: androidx.compose.ui.graphics.Color,
+    onClick: () -> Unit,
+) {
     Box(
         Modifier
             .clip(RoundedCornerShape(6.dp))
             .clickable(onClick = onClick)
             .padding(horizontal = 6.dp, vertical = 4.dp),
     ) {
-        Text(glyph, color = tint, fontSize = 15.sp)
+        Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(18.dp))
     }
 }
 

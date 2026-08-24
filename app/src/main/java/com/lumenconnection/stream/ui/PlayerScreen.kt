@@ -24,6 +24,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.PictureInPictureAlt
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.lifecycle.Lifecycle
@@ -106,7 +110,7 @@ fun PlayerScreen(mediaId: Long, onBack: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextButton(onClick = onBack) {
-                Text("←", color = Color.White, fontSize = 20.sp)
+                Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null, tint = Color.White)
             }
             Box(Modifier.weight(1f))
             if (pipSupported && media?.kind != "audio") {
@@ -118,7 +122,7 @@ fun PlayerScreen(mediaId: Long, onBack: () -> Unit) {
                         )
                     }
                 }) {
-                    Text("⧉", color = Color.White, fontSize = 18.sp)
+                    Icon(Icons.Outlined.PictureInPictureAlt, contentDescription = null, tint = Color.White)
                 }
             }
         }

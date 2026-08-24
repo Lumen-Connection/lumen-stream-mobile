@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -99,7 +101,8 @@ fun MediaTabScreen(audio: Boolean) {
             }
             Spacer(Modifier.height(12.dp))
             AccentButton(
-                text = "⤓  ${stringResource(R.string.home_download)}",
+                text = stringResource(R.string.home_download),
+                icon = Icons.Outlined.FileDownload,
                 onClick = {
                     val target = url.trim()
                     if (target.startsWith("http")) {

@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -115,7 +117,8 @@ fun HomeScreen(onOpenQueue: () -> Unit) {
             }
             Spacer(Modifier.height(12.dp))
             AccentButton(
-                text = "⤓  ${stringResource(R.string.home_download)}",
+                text = stringResource(R.string.home_download),
+                icon = Icons.Outlined.FileDownload,
                 onClick = {
                     if (url.trim().startsWith("http")) {
                         showFormatDialog = true
