@@ -7,11 +7,14 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.lumenconnection.stream.config.ThemeMode
 import com.lumenconnection.stream.ui.AppNav
 import com.lumenconnection.stream.ui.theme.LumenTheme
 
@@ -25,7 +28,17 @@ class MainActivity : ComponentActivity() {
         sharedUrl = intent?.getStringExtra(EXTRA_SHARED_URL)
 
         setContent {
-            LumenTheme {
+            val themeMode by Graph.settings.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+            val highContrast by Graph.settings.highContrast.collectAsState(initial = false)
+            val compact by Graph.settings.compact.collectAsState(initial = false)
+
+            val light = when (themeMode) {
+                ThemeMode.LIGHT -> true
+                ThemeMode.DARK -> false
+                ThemeMode.SYSTEM -> !isSystemInDarkTheme()
+            }
+
+            LumenTheme(light = light, highContrast = highContrast, compact = compact) {
                 AppNav(
                     sharedUrl = sharedUrl,
                     onSharedUrlConsumed = { sharedUrl = null },

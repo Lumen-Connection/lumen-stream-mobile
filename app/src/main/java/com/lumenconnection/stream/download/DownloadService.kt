@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.lumenconnection.stream.Graph
 import com.lumenconnection.stream.LumenApp
@@ -118,7 +119,9 @@ class DownloadService : Service() {
                     throw e
                 } catch (e: Exception) {
                     if (engine == Engine.NEWPIPE) throw e
-                    // AUTO: cai para o yt-dlp
+                    // AUTO: cai para o yt-dlp. Logar aqui é o que torna a queda
+                    // diagnosticável — sem isso a falha do NewPipe fica invisível.
+                    Log.w(TAG, "NewPipe failed for ${effectiveTask.url}, falling back to yt-dlp", e)
                 }
             }
             if (!done) {
@@ -219,7 +222,7 @@ class DownloadService : Service() {
                 // 403 do YouTube costuma ser yt-dlp desatualizado: atualiza e
                 // tenta uma vez de novo, como o desktop faz.
                 val msg = e.message.orEmpty()
-                val updatable = msg.contains("403") || msg.contains("Forbidden", ignoreCase = true)
+                val updatable = FriendlyError.isHttp403(msg)
                 if (task.id in cancelledIds || !updatable || !YtDlpEngine.update(applicationContext)) throw e
                 destDir.deleteRecursively()
                 YtDlpEngine.download(task.url, destDir, options, task.id.toString(), onProgress)
@@ -271,6 +274,7 @@ class DownloadService : Service() {
     }
 
     companion object {
+        private const val TAG = "DownloadService"
         private const val NOTIF_ID = 1001
         private const val EXTRA_CANCEL_ID = "cancel_id"
 

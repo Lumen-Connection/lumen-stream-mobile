@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="nav_home">Início</string>
+    <string name="nav_music">Música</string>
+    <string name="nav_video">Vídeo</string>
+    <string name="nav_queue">Fila</string>
     <string name="nav_library">Biblioteca</string>
     <string name="nav_settings">Configurações</string>
+    <string name="nav_help">Ajuda</string>
+
+    <string name="home_title">Bem-vindo</string>
+    <string name="home_subtitle">Cole um link e escolha como você quer.</string>
+    <string name="home_quick">Download rápido</string>
+    <string name="music_title">Música</string>
+    <string name="music_subtitle">Baixe áudio na melhor qualidade, MP3 ou Opus.</string>
+    <string name="video_title">Vídeo</string>
+    <string name="video_subtitle">Baixe vídeo na resolução que você escolher.</string>
+    <string name="queue_title">Fila</string>
+    <string name="queue_subtitle">Tudo que está baixando e tudo que já terminou.</string>
+    <string name="library_title">Biblioteca</string>
+    <string name="library_subtitle">Sua mídia, só neste aparelho.</string>
+    <string name="settings_title">Configurações</string>
+    <string name="settings_subtitle">Motor, armazenamento e opções de download.</string>
+    <string name="help_title">Ajuda</string>
+    <string name="help_subtitle">Como o app funciona e o que fazer quando algo falha.</string>
+
+    <string name="storage_all">Armazenamento</string>
+    <string name="storage_free">%1$s livres</string>
 
     <string name="home_paste_hint">Cole um link…</string>
     <string name="home_download">Baixar</string>
     <string name="home_queue">Fila</string>
     <string name="queue_empty">Nenhum download ainda</string>
+    <string name="queue_see_all">Ver a fila completa</string>
+    <string name="queue_clear_finished">Limpar concluídos</string>
     <string name="clipboard_detected">Link detectado na área de transferência</string>
     <string name="action_use">Usar</string>
     <string name="action_cancel">Cancelar</string>
     <string name="action_retry">Tentar de novo</string>
     <string name="action_delete">Excluir</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_save">Salvar</string>
 
     <string name="format_dialog_title">Escolha o formato</string>
     <string name="format_video">Vídeo (melhor qualidade)</string>
@@ -30,6 +57,10 @@
     <string name="library_empty">Sua biblioteca está vazia. Baixe algo!</string>
     <string name="favorites">Favoritos</string>
     <string name="all_media">Tudo</string>
+    <string name="tags_edit">Editar tags</string>
+    <string name="tags_hint">Tags, separadas por vírgula</string>
+    <string name="delete_media_title">Remover da biblioteca?</string>
+    <string name="delete_media_body">O arquivo continua no aparelho; só a entrada da biblioteca é removida.</string>
 
     <string name="settings_storage">Armazenamento</string>
     <string name="settings_storage_default">Padrão (Movies/Música via MediaStore)</string>
@@ -42,11 +73,38 @@
     <string name="settings_update_ytdlp">Atualizar yt-dlp</string>
     <string name="ytdlp_updated">yt-dlp atualizado</string>
     <string name="ytdlp_update_failed">Falha ao atualizar o yt-dlp</string>
+    <string name="settings_appearance">Aparência</string>
+    <string name="settings_theme_system">Seguir o sistema</string>
+    <string name="settings_theme_dark">Escuro</string>
+    <string name="settings_theme_light">Claro</string>
+    <string name="settings_high_contrast">Alto contraste</string>
+    <string name="settings_compact">Espaçamento compacto</string>
     <string name="settings_about">Sobre</string>
     <string name="settings_about_body">Livre, aberto e sem rastreamento. Parte do ecossistema Lumen Connection.</string>
+
+    <string name="help_engines_title">Motores</string>
+    <string name="help_engines_body">O NewPipe dá conta dos sites principais sem peso extra. Quando o site não é coberto, ou quando o formato exige junção ou conversão, o yt-dlp assume — ele vem com o próprio Python e ffmpeg.</string>
+    <string name="help_spotify_title">Links do Spotify</string>
+    <string name="help_spotify_body">O Spotify é protegido por DRM, então nada é baixado de lá. O app lê os metadados públicos e busca a mesma faixa no YouTube.</string>
+    <string name="help_storage_title">Onde os arquivos ficam</string>
+    <string name="help_storage_body">Por padrão, em Movies e Música do aparelho, visíveis para qualquer galeria ou player. Você pode apontar os downloads para outra pasta nas Configurações.</string>
+    <string name="help_403_title">Acesso negado (403)</string>
+    <string name="help_403_body">O YouTube recusa um yt-dlp desatualizado. O app atualiza e tenta de novo sozinho; se continuar falhando, espere alguns minutos e tente outra vez.</string>
+    <string name="help_version">Versão %1$s</string>
 
     <string name="notif_channel_downloads">Downloads</string>
     <string name="download_notification_title">Baixando</string>
     <string name="share_added">Adicionado à fila de downloads</string>
     <string name="error_invalid_url">Link inválido</string>
+
+    <string name="err_private">Vídeo privado ou que exige login.</string>
+    <string name="err_age">Conteúdo com restrição de idade (requer login/cookies).</string>
+    <string name="err_unavailable">Vídeo indisponível.</string>
+    <string name="err_format">Formato/resolução indisponível para este vídeo.</string>
+    <string name="err_spotify">Link do Spotify: o áudio é buscado no YouTube — acompanhe pela fila.</string>
+    <string name="err_unsupported">Link não suportado.</string>
+    <string name="err_403">Acesso negado (403). O yt-dlp foi atualizado automaticamente — tente de novo. Se persistir, aguarde alguns minutos.</string>
+    <string name="err_404">Conteúdo não encontrado (404).</string>
+    <string name="err_network">Falha de conexão. Verifique sua internet.</string>
+    <string name="err_generic">Falha no download: %1$s</string>
 </resources>

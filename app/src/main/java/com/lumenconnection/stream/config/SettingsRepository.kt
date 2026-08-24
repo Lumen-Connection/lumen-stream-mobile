@@ -13,6 +13,9 @@ private val Context.dataStore by preferencesDataStore(name = "settings")
 
 enum class Engine { AUTO, NEWPIPE, YTDLP }
 
+/** Espelha o tema do desktop, que tem claro/escuro explícitos além do sistema. */
+enum class ThemeMode { SYSTEM, DARK, LIGHT }
+
 class SettingsRepository(private val context: Context) {
 
     private object Keys {
@@ -21,6 +24,9 @@ class SettingsRepository(private val context: Context) {
         val CUSTOM_TREE_URI = stringPreferencesKey("custom_tree_uri")
         val SUBTITLES = booleanPreferencesKey("subtitles")
         val PLAYLIST = booleanPreferencesKey("playlist")
+        val THEME_MODE = stringPreferencesKey("theme_mode")
+        val HIGH_CONTRAST = booleanPreferencesKey("high_contrast")
+        val COMPACT = booleanPreferencesKey("compact")
     }
 
     val engine: Flow<Engine> = context.dataStore.data.map {
@@ -30,6 +36,13 @@ class SettingsRepository(private val context: Context) {
     val customTreeUri: Flow<String?> = context.dataStore.data.map { it[Keys.CUSTOM_TREE_URI] }
     val subtitles: Flow<Boolean> = context.dataStore.data.map { it[Keys.SUBTITLES] ?: false }
     val playlist: Flow<Boolean> = context.dataStore.data.map { it[Keys.PLAYLIST] ?: false }
+
+    val themeMode: Flow<ThemeMode> = context.dataStore.data.map {
+        runCatching { ThemeMode.valueOf(it[Keys.THEME_MODE] ?: ThemeMode.SYSTEM.name) }
+            .getOrDefault(ThemeMode.SYSTEM)
+    }
+    val highContrast: Flow<Boolean> = context.dataStore.data.map { it[Keys.HIGH_CONTRAST] ?: false }
+    val compact: Flow<Boolean> = context.dataStore.data.map { it[Keys.COMPACT] ?: false }
 
     suspend fun setEngine(value: Engine) =
         context.dataStore.edit { it[Keys.ENGINE] = value.name }
@@ -47,4 +60,13 @@ class SettingsRepository(private val context: Context) {
 
     suspend fun setPlaylist(value: Boolean) =
         context.dataStore.edit { it[Keys.PLAYLIST] = value }
+
+    suspend fun setThemeMode(value: ThemeMode) =
+        context.dataStore.edit { it[Keys.THEME_MODE] = value.name }
+
+    suspend fun setHighContrast(value: Boolean) =
+        context.dataStore.edit { it[Keys.HIGH_CONTRAST] = value }
+
+    suspend fun setCompact(value: Boolean) =
+        context.dataStore.edit { it[Keys.COMPACT] = value }
 }
