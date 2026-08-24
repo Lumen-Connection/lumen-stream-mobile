@@ -60,7 +60,7 @@ Notas técnicas:
 - NewPipeExtractor requer **core library desugaring** e Java 11+ target.
 - Dependências via **JitPack** (`maven { url = "https://jitpack.io" }`).
 - **Sem analytics/telemetria de nenhum tipo.**
-- Licença: NewPipe Extractor é GPLv3 e ffmpeg é GPL → o app deve ser **GPLv3** (verificar licença do desktop e alinhar).
+- Licença: **AGPL-3.0**, a mesma do desktop (confirmado pelo usuário em 2026-08-24 e conferido no repo). NewPipe Extractor (GPLv3) e ffmpeg (GPL) são compatíveis.
 
 ## 4. Fases e checklist
 
@@ -70,7 +70,7 @@ Notas técnicas:
 - [ ] 0.3 `git init` + primeiro commit
 - [ ] 0.4 Criar repo `Lumen-Connection/lumen-stream-mobile` via `gh` (público) e push
 - [ ] 0.5 GitHub Actions: workflow build + APK assinado em tag de release (espelhar padrão do desktop)
-- [ ] 0.6 README PT/EN + LICENSE (GPLv3)
+- [ ] 0.6 README PT/EN + LICENSE (AGPL-3.0)
 
 ### Fase 1 — MVP
 - [ ] 1.1 Room DB + entidades (media, downloads, tags, favorites)
@@ -95,7 +95,7 @@ Servidor HTTP local no repo Rust do desktop + descoberta mDNS; mobile acessa bib
 
 - **Tamanho do APK**: Python (yt-dlp) + ffmpeg ≈ +60–80 MB → usar ABI splits no release.
 - **Play Protect** pode alertar sideload → documentar no README.
-- **Licenças GPL** (NewPipe/ffmpeg) → app deve ser GPL-compatível.
+- **Licenças GPL** (NewPipe/ffmpeg) → o app é AGPL-3.0, compatível com ambas.
 - youtubedl-android só suporta certas ABIs (arm64-v8a, armeabi-v7a, x86, x86_64) — configurar `abiFilters`/splits.
 
 ## 6. Toolchain local (máquina do usuário — Windows 11, sem admin)
@@ -134,7 +134,7 @@ Passos após extrair:
 - ✅ Plano aprovado pelo usuário
 - ✅ Toolchain instalado: JDK 17 em `d:\HubLumen\.tools\jdk17\jdk-17.0.20+8`, SDK em `d:\HubLumen\.tools\android-sdk` (platform-tools, android-35, build-tools 35.0.0, licenças aceitas), Gradle 8.10.2 em `d:\HubLumen\.tools\gradle\gradle-8.10.2`
 - ✅ Scaffold completo escrito: Gradle KTS + version catalog, manifest, res (strings EN/PT-BR, tema, ícones), e todo o código Kotlin do MVP (LumenApp, Graph, SettingsRepository, Room, NewPipeDownloaderImpl/NewPipeEngine/YtDlpEngine, HttpDownloader, MediaSaver, DownloadService, MainActivity, ShareActivity, AppNav, Home/Library/Player/Settings screens, SpotifyMetadata stub)
-- ✅ CI escrito (`.github/workflows/android.yml`), README PT/EN, LICENSE GPL-3.0
+- ✅ CI escrito (`.github/workflows/android.yml`), README PT/EN, LICENSE AGPL-3.0 (corrigido de GPL-3.0 em 2026-08-24 para alinhar com o desktop)
 - ✅ **BUILD VERDE**: `gradlew assembleDebug` compila (APKs: arm64 74,6 MB; universal 213 MB — tamanho vem do Python/ffmpeg embutidos, como previsto). Atenção: youtubedl-android agora publica no **Maven Central** como `io.github.junkfood02.youtubedl-android:library/ffmpeg:0.18.1` (JitPack do yausername quebrou nas versões novas); os pacotes Kotlin continuam `com.yausername.*`
 - ✅ Repo criado e push feito: https://github.com/Lumen-Connection/lumen-stream-mobile (branch main)
 - ✅ **CI verde** no GitHub Actions (job build; job release só roda em tag `v*`)

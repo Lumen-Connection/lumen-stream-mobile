@@ -28,7 +28,7 @@ Requisitos: JDK 17 e Android SDK (API 35).
 
 ## Licença
 
-GPL-3.0 — este app embarca NewPipe Extractor (GPLv3) e ffmpeg (GPL).
+AGPL-3.0, a mesma do [Lumen Stream](https://github.com/Lumen-Connection/lumen-stream) desktop. O app embarca NewPipe Extractor (GPLv3) e ffmpeg (GPL), compatíveis com a AGPL.
 
 ---
 
@@ -52,4 +52,4 @@ Grab the APK for your architecture (or the `universal` one) from [Releases](../.
 
 ### License
 
-GPL-3.0 — this app embeds NewPipe Extractor (GPLv3) and ffmpeg (GPL).
+AGPL-3.0, the same as the [Lumen Stream](https://github.com/Lumen-Connection/lumen-stream) desktop app. It embeds NewPipe Extractor (GPLv3) and ffmpeg (GPL), both AGPL-compatible.

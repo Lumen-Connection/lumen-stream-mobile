@@ -74,6 +74,10 @@ fun HelpScreen() {
                     stringResource(R.string.help_version, ""),
                     BuildConfig.VERSION_NAME,
                 )
+                InfoRow(
+                    stringResource(R.string.help_license),
+                    stringResource(R.string.license_name),
+                )
             }
         }
         Spacer(Modifier.height(24.dp))
